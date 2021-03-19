@@ -12,9 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import java.util.Random;
 
 import funix.prm.alarmapps.R;
 
@@ -55,7 +54,7 @@ public class CreateAlarmFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         rootView = LayoutInflater.from(getContext())
@@ -126,9 +125,7 @@ public class CreateAlarmFragment extends Fragment {
 
         // Create an alarm DatabaseHelper to add alarm to database
         AlarmDatabaseHelper alarmDatabaseHelper = new AlarmDatabaseHelper(getContext());
-
-        // Add alarm to database
-        alarmDatabaseHelper.addAlarm(
+        AlarmDatabaseHelper.Alarm alarm = new AlarmDatabaseHelper.Alarm(
                 TimePickerUtil.getTimePickerHour(timePicker),
                 TimePickerUtil.getTimePickerMinute(timePicker),
                 title.getText().toString(),
@@ -140,7 +137,10 @@ public class CreateAlarmFragment extends Fragment {
                 intThu,
                 intFri,
                 intSat,
-                intSun);
+                intSun
+        );
+        // Add alarm to database
+        alarmDatabaseHelper.addAlarm(alarm);
         // TODO: put Alarm to alarmManager to make an alarm for system
 
     }

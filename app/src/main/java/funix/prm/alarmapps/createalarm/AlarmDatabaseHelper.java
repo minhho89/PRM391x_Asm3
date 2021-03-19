@@ -58,24 +58,25 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void addAlarm(int hour, int minute, String title, int started, int recurring,
-                  int mon, int tue, int wed, int thu, int fri, int sat, int sun) {
+    /**
+     * Add new alarm to SQLite database
+     */
+    public void addAlarm(Alarm alarm) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COL_HOUR, hour);
-        cv.put(COL_MINUTE, minute);
-        cv.put(COL_TITLE, title);
-        cv.put(COL_STARTED, started);
-        cv.put(COL_RECURRING, recurring);
-        cv.put(COL_MONDAY, mon);
-        cv.put(COL_TUESDAY, tue);
-        cv.put(COL_WEDNESDAY, wed);
-        cv.put(COL_THURSDAY, thu);
-        cv.put(COL_FRIDAY, fri);
-        cv.put(COL_SATURDAY, sat);
-        cv.put(COL_SUNDAY, sun);
-
+        cv.put(COL_HOUR, alarm.getHour());
+        cv.put(COL_MINUTE, alarm.getMinute());
+        cv.put(COL_TITLE, alarm.getTitle());
+        cv.put(COL_STARTED, alarm.getStarted());
+        cv.put(COL_RECURRING, alarm.getRecurring());
+        cv.put(COL_MONDAY, alarm.getMon());
+        cv.put(COL_TUESDAY, alarm.getTue());
+        cv.put(COL_WEDNESDAY, alarm.getWed());
+        cv.put(COL_THURSDAY, alarm.getThu());
+        cv.put(COL_FRIDAY, alarm.getFri());
+        cv.put(COL_SATURDAY, alarm.getSat());
+        cv.put(COL_SUNDAY, alarm.getSun());
 
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1) {
@@ -84,7 +85,133 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         } else {
             Toast.makeText(context, "Added successfully!", Toast.LENGTH_SHORT).show();
         }
-
-
     }
+
+    public static class Alarm {
+        private int id, hour, minute;
+        private String title;
+        private int started, recurring;
+        private int mon, tue, wed, thu, fri, sat, sun;
+
+        public Alarm(int hour, int minute, String title, int started, int recurring,
+                     int mon, int tue, int wed, int thu, int fri, int sat, int sun) {
+            this.hour = hour;
+            this.minute = minute;
+            this.title = title;
+            this.started = started;
+            this.recurring = recurring;
+            this.mon = mon;
+            this.tue = tue;
+            this.wed = wed;
+            this.thu = thu;
+            this.fri = fri;
+            this.sat = sat;
+            this.sun = sun;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getHour() {
+            return hour;
+        }
+
+        public void setHour(int hour) {
+            this.hour = hour;
+        }
+
+        public int getMinute() {
+            return minute;
+        }
+
+        public void setMinute(int minute) {
+            this.minute = minute;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public int getStarted() {
+            return started;
+        }
+
+        public void setStarted(int started) {
+            this.started = started;
+        }
+
+        public int getRecurring() {
+            return recurring;
+        }
+
+        public void setRecurring(int recurring) {
+            this.recurring = recurring;
+        }
+
+        public int getMon() {
+            return mon;
+        }
+
+        public void setMon(int mon) {
+            this.mon = mon;
+        }
+
+        public int getTue() {
+            return tue;
+        }
+
+        public void setTue(int tue) {
+            this.tue = tue;
+        }
+
+        public int getWed() {
+            return wed;
+        }
+
+        public void setWed(int wed) {
+            this.wed = wed;
+        }
+
+        public int getThu() {
+            return thu;
+        }
+
+        public void setThu(int thu) {
+            this.thu = thu;
+        }
+
+        public int getFri() {
+            return fri;
+        }
+
+        public void setFri(int fri) {
+            this.fri = fri;
+        }
+
+        public int getSat() {
+            return sat;
+        }
+
+        public void setSat(int sat) {
+            this.sat = sat;
+        }
+
+        public int getSun() {
+            return sun;
+        }
+
+        public void setSun(int sun) {
+            this.sun = sun;
+        }
+    }
+
 }
