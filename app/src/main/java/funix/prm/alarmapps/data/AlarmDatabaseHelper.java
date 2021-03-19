@@ -1,4 +1,4 @@
-package funix.prm.alarmapps.createalarm;
+package funix.prm.alarmapps.data;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -335,6 +335,24 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
                 days += "Su ";
             }
             return days;
+        }
+
+        /**
+         * Cancels alarm (used for toogle button)
+         *
+         * @param context
+         */
+        public void cancelAlarm(Context context) {
+            AlarmManager alarmManager =
+                    (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
+            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, id, intent, 0);
+            alarmManager.cancel(alarmPendingIntent); // cancel alarm
+            this.started = 0; // set started of alarm object value to 0
+
+            String toastText = String.format("Alarm cancelled");
+            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+
         }
     }
 

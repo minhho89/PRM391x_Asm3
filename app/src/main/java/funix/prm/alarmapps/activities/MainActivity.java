@@ -1,10 +1,11 @@
-package funix.prm.alarmapps;
+package funix.prm.alarmapps.activities;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import funix.prm.alarmapps.R;
 import funix.prm.alarmapps.createalarm.CreateAlarmFragment;
 
 public class MainActivity extends AppCompatActivity {

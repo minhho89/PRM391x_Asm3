@@ -1,5 +1,6 @@
 package funix.prm.alarmapps.createalarm;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import funix.prm.alarmapps.R;
+import funix.prm.alarmapps.data.AlarmDatabaseHelper;
 import funix.prm.alarmapps.utils.TimePickerUtil;
 
 /**
@@ -143,7 +145,9 @@ public class CreateAlarmFragment extends Fragment {
         // Add alarm to database
         alarmDatabaseHelper.addAlarm(alarm);
         // TODO: put Alarm to alarmManager to make an alarm for system
-        alarm.schedule(alarm, getContext());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarm.schedule(getContext());
+        }
 
     }
 }

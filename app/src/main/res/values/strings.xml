@@ -13,4 +13,7 @@
     <string name="sat_text">Sat</string>
     <string name="sun_text">Sun</string>
 
+    <string name="snooze_btn">Snooze</string>
+    <string name="dismiss_btn">Dismiss</string>
+
 </resources>

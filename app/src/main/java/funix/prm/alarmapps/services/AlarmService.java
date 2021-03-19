@@ -16,8 +16,8 @@ import android.os.Vibrator;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import funix.prm.alarmapps.AlarmOnActivity;
 import funix.prm.alarmapps.R;
+import funix.prm.alarmapps.activities.AlarmOnActivity;
 
 import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.TITLE;
 import static funix.prm.alarmapps.services.AlarmService.App.CHANNEL_ID;
@@ -92,7 +92,7 @@ public class AlarmService extends Service {
         return null;
     }
 
-    public class App extends Application {
+    public static class App extends Application {
         // From API Oreo, we need to create an service channel to make a notification
         public static final String CHANNEL_ID = "ALARM_SERVICE_CHANNEL";
 
