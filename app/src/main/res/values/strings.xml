@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Alarm Apps</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="schedule_alarm_text">Schedule Alarm</string>
+    <string name="alarm_title_text">Alarm Title</string>
+    <string name="recurring_alarm_text">Recurring Alarm</string>
+    <string name="mon_text">Mon</string>
+    <string name="tue_text">Tue</string>
+    <string name="wed_text">Wed</string>
+    <string name="thu_text">Thu</string>
+    <string name="fri_text">Fri</string>
+    <string name="sat_text">Sat</string>
+    <string name="sun_text">Sun</string>
+
+</resources>

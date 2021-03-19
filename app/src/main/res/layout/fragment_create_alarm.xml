@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_createalarm_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".createalarm.CreateAlarmFragment">
+
+    <TextView
+        android:id="@+id/fragment_createalarm_scheduleAlarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/recurring_alarm_text"
+        android:textAlignment="center" />
+
+    <TimePicker
+        android:id="@+id/fragment_createalarm_timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:timePickerMode="spinner" />
+
+    <EditText
+        android:id="@+id/fragment_createalarm_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/alarm_title_text" />
+
+    <LinearLayout
+        android:id="@+id/fragment_createalarm_recurring_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkMon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mon_text" />
+
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkTue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tue_text" />
+
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkWed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wed_text" />
+
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkThu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/thu_text" />
+
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkFri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fri_text" />
+
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkSat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sat_text" />
+
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkSun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sun_text" />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/fragment_createalarm_Checkrecurring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recurring_alarm_text" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/fragment_createalarm_scheduleAlarmButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/schedule_alarm_text" />
+
+    </LinearLayout>
+
+</LinearLayout>
