@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -111,12 +112,35 @@ public class CreateAlarmFragment extends Fragment {
      * then inserts to database
      */
     private void scheduleAlarm() {
-        // Assign a random number for alarm Id
-        int alarmId = new Random().nextInt(Integer.MAX_VALUE);
+        // Convert boolean to int value to put into database
+        int intRecurring = recurring.isChecked() ? 1 : 0;
+        int intMon = mon.isChecked() ? 1 : 0;
+        int intTue = tue.isChecked() ? 1 : 0;
+        int intWed = wed.isChecked() ? 1 : 0;
+        int intThu = thu.isChecked() ? 1 : 0;
+        int intFri = fri.isChecked() ? 1 : 0;
+        int intSat = sat.isChecked() ? 1 : 0;
+        int intSun = sun.isChecked() ? 1 : 0;
 
-        // TODO: create Alarm class
-        // TODO: create Alarm Database
-        // TODO: insert Alarm object to Alarm Database
+        Toast.makeText(getContext(), intRecurring + "", Toast.LENGTH_SHORT).show();
+
+        // Create an alarm DatabaseHelper to add alarm to database
+        AlarmDatabaseHelper alarmDatabaseHelper = new AlarmDatabaseHelper(getContext());
+
+        // Add alarm to database
+        alarmDatabaseHelper.addAlarm(
+                TimePickerUtil.getTimePickerHour(timePicker),
+                TimePickerUtil.getTimePickerMinute(timePicker),
+                title.getText().toString(),
+                1,
+                intRecurring,
+                intMon,
+                intTue,
+                intWed,
+                intThu,
+                intFri,
+                intSat,
+                intSun);
         // TODO: put Alarm to alarmManager to make an alarm for system
 
     }
