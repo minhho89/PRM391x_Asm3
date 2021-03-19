@@ -1,12 +1,32 @@
 package funix.prm.alarmapps.createalarm;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
+import java.util.Calendar;
+
+import funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver;
+import funix.prm.alarmapps.utils.DayUtil;
+
+import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.FRIDAY;
+import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.MONDAY;
+import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.RECURRING;
+import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.SATURDAY;
+import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.SUNDAY;
+import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.THURSDAY;
+import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.TITLE;
+import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.TUESDAY;
+import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.WEDNESDAY;
 
 public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 
@@ -85,6 +105,7 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         } else {
             Toast.makeText(context, "Added successfully!", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public static class Alarm {
@@ -211,6 +232,109 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 
         public void setSun(int sun) {
             this.sun = sun;
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        public void schedule(Context context) {
+
+            // Get AlarmManager instance
+            AlarmManager alarmManager =
+                    (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            // Intent part
+            Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
+            intent.putExtra(RECURRING, recurring);
+            intent.putExtra(MONDAY, mon);
+            intent.putExtra(TUESDAY, tue);
+            intent.putExtra(WEDNESDAY, wed);
+            intent.putExtra(THURSDAY, thu);
+            intent.putExtra(FRIDAY, fri);
+            intent.putExtra(SATURDAY, sat);
+            intent.putExtra(SUNDAY, sun);
+            intent.putExtra(TITLE, title);
+
+            // Create PendingIntent
+            PendingIntent alarmPendingIntent =
+                    PendingIntent.getBroadcast(context, id, intent, 0);
+
+            // Calendar
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+
+            // If alarm time has already passed, increment day by 1
+            if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+                calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);
+            }
+
+            if (recurring == 0) {
+                // If alarm is not a recurring alarm, set alarm 1 time
+                String toastText = null;
+                try {
+                    toastText = String.format("One time alarm %s scheduled for %s at %02d:%02d",
+                            title, DayUtil.toDay(Calendar.DAY_OF_WEEK), hour, minute);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
+
+                alarmManager.setExact(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(),
+                        alarmPendingIntent
+                );
+            } else {
+                // If alarm is a recurring alarm, set alarm repeat
+                String toastText = String.format("Recurring alarm %s set for %s at %02d:%02d",
+                        title, getRecurringDays(), hour, minute);
+                Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+
+                // Interval in Millis
+                final long RUN_DAILY = 24 * 60 * 60 * 1000;
+                alarmManager.setRepeating(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(), // triggers at
+                        RUN_DAILY, //interval Mills
+                        alarmPendingIntent
+                );
+            }
+        }
+
+        /**
+         * Generate a String of day of week for recurring alarm message
+         *
+         * @return
+         */
+        private String getRecurringDays() {
+            if (recurring == 0) {
+                return null;
+            }
+
+            String days = "";
+            if (mon == 1) {
+                days += "Mo ";
+            }
+            if (tue == 1) {
+                days += "Tu ";
+            }
+            if (wed == 1) {
+                days += "We ";
+            }
+            if (thu == 1) {
+                days += "Th ";
+            }
+            if (fri == 1) {
+                days += "Fr ";
+            }
+            if (sat == 1) {
+                days += "Sa ";
+            }
+            if (sun == 1) {
+                days += "Su ";
+            }
+            return days;
         }
     }
 

@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import funix.prm.alarmapps.R;
+import funix.prm.alarmapps.utils.TimePickerUtil;
 
 /**
  * Creates an alarm (including data) after user picked time by time picker.
@@ -142,6 +143,7 @@ public class CreateAlarmFragment extends Fragment {
         // Add alarm to database
         alarmDatabaseHelper.addAlarm(alarm);
         // TODO: put Alarm to alarmManager to make an alarm for system
+        alarm.schedule(alarm, getContext());
 
     }
 }
