@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import funix.prm.alarmapps.R;
-import funix.prm.alarmapps.createalarm.CreateAlarmFragment;
+import funix.prm.alarmapps.createalarm.AlarmListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO temporary test fragment
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        CreateAlarmFragment alarmFragment = new CreateAlarmFragment();
-        ft.add(R.id.viewholder, alarmFragment).commit();
+        AlarmListFragment alarmListFragment = new AlarmListFragment();
+        ft.add(R.id.viewholder, alarmListFragment).commit();
     }
 }

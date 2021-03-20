@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
@@ -56,9 +57,10 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME +
-                " (" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL_HOUR + " INTEGER, " +
                 COL_MINUTE + " INTEGER, " +
+                COL_TITLE + " TEXT, " +
                 COL_STARTED + " INTEGER, " +
                 COL_RECURRING + " INTEGER, " +
                 COL_MONDAY + " INTEGER, " +
@@ -67,8 +69,7 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
                 COL_THURSDAY + " INTEGER, " +
                 COL_FRIDAY + " INTEGER, " +
                 COL_SATURDAY + " INTEGER, " +
-                COL_SUNDAY + " INTEGER, " +
-                COL_TITLE + " TEXT);";
+                COL_SUNDAY + " INTEGER);";
         db.execSQL(query);
     }
 
@@ -105,7 +106,17 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         } else {
             Toast.makeText(context, "Added successfully!", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    public Cursor readAllData() {
+        String query = "SELECT * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
     }
 
     public static class Alarm {
@@ -234,6 +245,25 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
             this.sun = sun;
         }
 
+        @Override
+        public String toString() {
+            return "Alarm{" +
+                    "id=" + id +
+                    ", hour=" + hour +
+                    ", minute=" + minute +
+                    ", title='" + title + '\'' +
+                    ", started=" + started +
+                    ", recurring=" + recurring +
+                    ", mon=" + mon +
+                    ", tue=" + tue +
+                    ", wed=" + wed +
+                    ", thu=" + thu +
+                    ", fri=" + fri +
+                    ", sat=" + sat +
+                    ", sun=" + sun +
+                    '}';
+        }
+
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         public void schedule(Context context) {
 
@@ -307,7 +337,7 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
          *
          * @return
          */
-        private String getRecurringDays() {
+        public String getRecurringDays() {
             if (recurring == 0) {
                 return null;
             }
@@ -338,7 +368,7 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         }
 
         /**
-         * Cancels alarm (used for toogle button)
+         * Cancels alarm (used for toggle button)
          *
          * @param context
          */
