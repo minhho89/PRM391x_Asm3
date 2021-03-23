@@ -1,5 +1,6 @@
 package funix.prm.alarmapps.createalarm;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -11,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import funix.prm.alarmapps.R;
+import funix.prm.alarmapps.activities.AlarmOnActivity;
+import funix.prm.alarmapps.activities.MainActivity;
 import funix.prm.alarmapps.data.AlarmDatabaseHelper;
 
 public class AlarmViewHolder extends RecyclerView.ViewHolder {
@@ -31,7 +34,6 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
         txtAlarmTitle = itemView.findViewById(R.id.item_txt_alarmTitle);
         swtStarted = itemView.findViewById(R.id.item_swt_started);
         imgRecurring = itemView.findViewById(R.id.item_img_recurring);
-        btnDelete = itemView.findViewById(R.id.item_btn_delete);
 
         this.toggleListener = toggleListener;
     }
@@ -101,7 +103,6 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
         String alarmClockText = String.format("%02d:%02d", alarm.getHour(), alarm.getMinute());
 
         txtAlarmClock.setText(alarmClockText);
-
         swtStarted.setChecked(alarm.getStarted() == 1);
 
         swtStarted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -124,6 +125,7 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
         } else {
             txtAlarmTitle.setText("No title");
         }
+
     }
 
 

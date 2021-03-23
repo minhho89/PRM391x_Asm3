@@ -6,15 +6,6 @@
     android:orientation="vertical"
     tools:context=".activities.AlarmOnActivity">
 
-    <TextView
-        android:id="@+id/fragment_alarm_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/alarm_title_text"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
     <ImageView
         android:id="@+id/fragment_alarm_imageView"
         android:layout_width="match_parent"

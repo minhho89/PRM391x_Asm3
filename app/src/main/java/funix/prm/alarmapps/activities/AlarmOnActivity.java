@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +23,7 @@ public class AlarmOnActivity extends AppCompatActivity {
     Button snoozeBtn;
     ImageView clockImg;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,8 @@ public class AlarmOnActivity extends AppCompatActivity {
         dismissBtn = findViewById(R.id.fragment_alarm_dismiss_btn);
         snoozeBtn = findViewById(R.id.fragment_alarm_snooze_btn);
         clockImg = findViewById(R.id.fragment_alarm_imageView);
+
+
 
         dismissBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import funix.prm.alarmapps.activities.AlarmOnActivity;
 import funix.prm.alarmapps.services.AlarmService;
 import funix.prm.alarmapps.services.RescheduleAlarmService;
 
@@ -104,6 +105,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         } else {
             context.startService(intentService);
         }
+
+
+
     }
 
     /**

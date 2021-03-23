@@ -18,8 +18,13 @@
     <string name="snooze_btn">Snooze</string>
     <string name="dismiss_btn">Dismiss</string>
     <string name="create_btn">Create alarm</string>
+    <string name="delete_all_btn">Delete all</string>
 
     <string name="alarm_list_heading">ALARM LIST</string>
 
+    <string name="delete_all_confirm">Delete all data?</string>
+    <string name="delete_all_sure">Are you sure you want to delete all data?</string>
+    <string name="yes_confirm">Yes</string>
+    <string name="no_confirm">No</string>
 
 </resources>

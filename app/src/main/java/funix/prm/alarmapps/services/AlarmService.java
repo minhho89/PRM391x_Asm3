@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat;
 import funix.prm.alarmapps.R;
 import funix.prm.alarmapps.activities.AlarmOnActivity;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.TITLE;
 import static funix.prm.alarmapps.services.AlarmService.App.CHANNEL_ID;
 
@@ -55,8 +56,10 @@ public class AlarmService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Intent notificationIntent = new Intent(this, AlarmOnActivity.class);
+
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
 
         // Retrieves alarm title
         String alarmTitle = intent.getStringExtra(TITLE) + " alarm";
@@ -75,6 +78,10 @@ public class AlarmService extends Service {
         // Vibrate
         vibrator.vibrate(new long[]{0, 100, 1000}, 0);
         startForeground(1, notification);
+
+        // Move to AlarmOnActivity
+        notificationIntent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        startActivity(notificationIntent);
 
         return START_STICKY;
     }
