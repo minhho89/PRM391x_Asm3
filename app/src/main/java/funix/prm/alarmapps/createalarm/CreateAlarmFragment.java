@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import funix.prm.alarmapps.R;
 import funix.prm.alarmapps.data.AlarmDatabaseHelper;
@@ -39,11 +40,6 @@ public class CreateAlarmFragment extends Fragment {
     CheckBox sun;
     LinearLayout recurringOptions;
 
-
-    // TODO add CreateAlarmViewModel
-    // private CreateAlarmViewModel createAlarmViewModel;
-
-
     public CreateAlarmFragment() {
         // Required empty public constructor
     }
@@ -52,8 +48,6 @@ public class CreateAlarmFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        createAlarmViewModel = ViewModelProviders.of(this).get(CreateAlarmViewModel.class);
     }
 
     @Override
@@ -107,6 +101,9 @@ public class CreateAlarmFragment extends Fragment {
      * Moves to alarmListFragment
      */
     private void moveToAlarmListFragment() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        AlarmListFragment alarmListFragment = new AlarmListFragment();
+        ft.replace(R.id.viewholder, alarmListFragment).commit();
     }
 
     /**
@@ -144,7 +141,7 @@ public class CreateAlarmFragment extends Fragment {
         );
         // Add alarm to database
         alarmDatabaseHelper.addAlarm(alarm);
-        // TODO: put Alarm to alarmManager to make an alarm for system
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             alarm.schedule(getContext());
         }

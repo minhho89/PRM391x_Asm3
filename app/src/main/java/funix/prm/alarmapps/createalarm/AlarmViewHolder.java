@@ -1,6 +1,5 @@
 package funix.prm.alarmapps.createalarm;
 
-import android.app.Activity;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -12,10 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import funix.prm.alarmapps.R;
-import funix.prm.alarmapps.activities.AlarmOnActivity;
-import funix.prm.alarmapps.activities.MainActivity;
 import funix.prm.alarmapps.data.AlarmDatabaseHelper;
 
+/**
+ * Viewholder for AlarmRecyclerViewAdapter
+ */
 public class AlarmViewHolder extends RecyclerView.ViewHolder {
 
     private TextView txtAlarmClock;
@@ -127,6 +127,5 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
         }
 
     }
-
 
 }

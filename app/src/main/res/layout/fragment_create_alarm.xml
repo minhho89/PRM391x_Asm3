@@ -29,6 +29,7 @@
         android:layout_gravity="center_horizontal"
         android:hint="@string/alarm_title_text" />
 
+
     <LinearLayout
         android:id="@+id/fragment_createalarm_recurring_options"
         android:layout_width="match_parent"
@@ -40,42 +41,49 @@
             android:id="@+id/fragment_createalarm_checkMon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/md_value"
             android:text="@string/mon_text" />
 
         <CheckBox
             android:id="@+id/fragment_createalarm_checkTue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/md_value"
             android:text="@string/tue_text" />
 
         <CheckBox
             android:id="@+id/fragment_createalarm_checkWed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/md_value"
             android:text="@string/wed_text" />
 
         <CheckBox
             android:id="@+id/fragment_createalarm_checkThu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/md_value"
             android:text="@string/thu_text" />
 
         <CheckBox
             android:id="@+id/fragment_createalarm_checkFri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/md_value"
             android:text="@string/fri_text" />
 
         <CheckBox
             android:id="@+id/fragment_createalarm_checkSat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/md_value"
             android:text="@string/sat_text" />
 
         <CheckBox
             android:id="@+id/fragment_createalarm_checkSun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/md_value"
             android:text="@string/sun_text" />
 
     </LinearLayout>

@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO temporary test fragment
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         AlarmListFragment alarmListFragment = new AlarmListFragment();
         ft.add(R.id.viewholder, alarmListFragment).commit();
@@ -44,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Asks user to confirm before hitting delete all alarms
+     */
     private void confirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.delete_all_confirm);
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton(R.string.no_confirm, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                // Do nothing
             }
         });
         builder.create().show();

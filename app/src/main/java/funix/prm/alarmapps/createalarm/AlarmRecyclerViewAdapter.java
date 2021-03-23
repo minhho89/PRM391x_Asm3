@@ -3,7 +3,6 @@ package funix.prm.alarmapps.createalarm;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +12,9 @@ import java.util.List;
 import funix.prm.alarmapps.R;
 import funix.prm.alarmapps.data.AlarmDatabaseHelper;
 
+/**
+ * Adapter for AlarmListFragment RecyclerView
+ */
 public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
     private final OnToggleAlarmListener toggleListener;
     private List<AlarmDatabaseHelper.Alarm> alarmList;
@@ -30,7 +32,6 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmViewHold
         View rootView = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.alarm_recycler_item, parent, false);
-        Toast.makeText(parent.getContext(), "ViewHolder created", Toast.LENGTH_SHORT).show();
         return new AlarmViewHolder(rootView, toggleListener);
     }
 

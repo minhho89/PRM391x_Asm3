@@ -29,6 +29,10 @@ import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.TITLE
 import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.TUESDAY;
 import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.WEDNESDAY;
 
+/**
+ * Deals with SQLite database queries
+ * Inserts new alarm and delete all alarms
+ */
 public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "Alarm.db";

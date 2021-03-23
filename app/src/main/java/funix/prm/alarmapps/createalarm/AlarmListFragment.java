@@ -20,10 +20,11 @@ import java.util.List;
 import funix.prm.alarmapps.R;
 import funix.prm.alarmapps.data.AlarmDatabaseHelper;
 
-
+/**
+ * Handles fragment of displaying alarm list by RecyclerView
+ */
 public class AlarmListFragment extends Fragment implements OnToggleAlarmListener {
     private AlarmRecyclerViewAdapter alarmRecyclerViewAdapter;
-    private AlarmViewHolder alarmViewHolder;
     private RecyclerView recyclerView;
     private Button btnCreate;
 

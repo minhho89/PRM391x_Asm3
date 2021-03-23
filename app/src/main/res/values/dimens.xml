@@ -3,5 +3,6 @@
     <dimen name="big_image">300dp</dimen>
     <dimen name="x_sm_value">3dp</dimen>
     <dimen name="sm_value">6dp</dimen>
+    <dimen name="md_value">10dp</dimen>
     <dimen name="item_text">267dp</dimen>
 </resources>
