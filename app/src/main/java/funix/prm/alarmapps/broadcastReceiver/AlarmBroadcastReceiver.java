@@ -9,9 +9,6 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import funix.prm.alarmapps.services.AlarmService;
-import funix.prm.alarmapps.services.RescheduleAlarmService;
-
-import static android.content.Intent.ACTION_BOOT_COMPLETED;
 
 /**
  * Handles the broadcast from the AlarmManager
@@ -36,14 +33,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        // When user resets device, all schedule will be gone,
-        // so we need to re-schedule the alarms in case device completed boots.
-        if (ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            String toastText = "Alarm reboot";
-            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
-            startRescheduleAlarmsService(context);
-        } else {
-            String toastText = "Alarm received";
+
+        String toastText = "Alarm received";
             Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
 
             // If alarm is not a recurring alarm then start the alarm service right away.
@@ -56,7 +47,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                     startAlarmService(context, intent);
                 }
             }
-        }
+
     }
 
 
@@ -106,18 +97,4 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    /**
-     * Reschedules all the AlarmService
-     *
-     * @param context
-     */
-    private void startRescheduleAlarmsService(Context context) {
-        Intent intentService = new Intent(context, RescheduleAlarmService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(intentService);
-        } else {
-            context.startService(intentService);
-        }
-
-    }
 }
