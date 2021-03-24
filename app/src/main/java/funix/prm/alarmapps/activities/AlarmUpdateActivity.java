@@ -1,10 +1,8 @@
-package funix.prm.alarmapps.createalarm;
+package funix.prm.alarmapps.activities;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -12,25 +10,20 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.util.Random;
-
 import funix.prm.alarmapps.R;
+import funix.prm.alarmapps.createalarm.AlarmListFragment;
 import funix.prm.alarmapps.data.AlarmDatabaseHelper;
 import funix.prm.alarmapps.utils.TimePickerUtil;
 
-/**
- * Creates an alarm (including data) after user picked time by time picker.
- * Retains data by using ViewModel.
- */
-public class CreateAlarmFragment extends Fragment {
+public class AlarmUpdateActivity extends AppCompatActivity {
     View rootView;
     TimePicker timePicker;
-    EditText title;
-    Button scheduleAlarm;
+    EditText txtTitle;
+    Button editButton;
+    Button deleteButton;
     CheckBox recurring;
     CheckBox mon;
     CheckBox tue;
@@ -41,35 +34,26 @@ public class CreateAlarmFragment extends Fragment {
     CheckBox sun;
     LinearLayout recurringOptions;
 
-    public CreateAlarmFragment() {
-        // Required empty public constructor
-    }
-
+    String title;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.activity_alarm_update);
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        rootView = LayoutInflater.from(getContext())
-                .inflate(R.layout.fragment_create_alarm, null);
-
-        timePicker = rootView.findViewById(R.id.fragment_createalarm_timePicker);
-        title = rootView.findViewById(R.id.fragment_createalarm_title);
-        scheduleAlarm = rootView.findViewById(R.id.fragment_createalarm_scheduleAlarmButton);
-        recurring = rootView.findViewById(R.id.fragment_createalarm_Checkrecurring);
-        mon = rootView.findViewById(R.id.fragment_createalarm_checkMon);
-        tue = rootView.findViewById(R.id.fragment_createalarm_checkTue);
-        wed = rootView.findViewById(R.id.fragment_createalarm_checkWed);
-        thu = rootView.findViewById(R.id.fragment_createalarm_checkThu);
-        fri = rootView.findViewById(R.id.fragment_createalarm_checkFri);
-        sat = rootView.findViewById(R.id.fragment_createalarm_checkSat);
-        sun = rootView.findViewById(R.id.fragment_createalarm_checkSun);
-        recurringOptions = rootView.findViewById(R.id.fragment_createalarm_recurring_options);
+        timePicker = findViewById(R.id.update_timePicker);
+        txtTitle = findViewById(R.id.update_title);
+        editButton = findViewById(R.id.update_edit_AlarmButton);
+        deleteButton = findViewById(R.id.update_delete_AlarmButton);
+        recurring = findViewById(R.id.update_Checkrecurring);
+        mon = findViewById(R.id.update_checkMon);
+        tue = findViewById(R.id.update_checkTue);
+        wed = findViewById(R.id.update_checkWed);
+        thu = findViewById(R.id.update_checkThu);
+        fri = findViewById(R.id.update_checkFri);
+        sat = findViewById(R.id.update_checkSat);
+        sun = findViewById(R.id.update_checkSun);
+        recurringOptions = findViewById(R.id.update_recurring_options);
 
         recurring.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -82,7 +66,7 @@ public class CreateAlarmFragment extends Fragment {
             }
         });
 
-        scheduleAlarm.setOnClickListener(new View.OnClickListener() {
+        editButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -94,15 +78,31 @@ public class CreateAlarmFragment extends Fragment {
             }
         });
 
-        // Inflate the layout for this fragment
-        return rootView;
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        getAndSetIntentData();
+
+    }
+
+    private void getAndSetIntentData() {
+        if (getIntent().hasExtra("title")) {
+            title = getIntent().getStringExtra("title");
+
+            txtTitle.setText(title);
+        }
     }
 
     /**
      * Moves to alarmListFragment
      */
     private void moveToAlarmListFragment() {
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         AlarmListFragment alarmListFragment = new AlarmListFragment();
         ft.replace(R.id.viewholder, alarmListFragment).commit();
     }
@@ -123,12 +123,11 @@ public class CreateAlarmFragment extends Fragment {
         int intSun = sun.isChecked() ? 1 : 0;
 
         // Create an alarm DatabaseHelper to add alarm to database
-        AlarmDatabaseHelper alarmDatabaseHelper = new AlarmDatabaseHelper(getContext());
+        AlarmDatabaseHelper alarmDatabaseHelper = new AlarmDatabaseHelper(this);
         AlarmDatabaseHelper.Alarm alarm = new AlarmDatabaseHelper.Alarm(
-                new Random().nextInt(Integer.MAX_VALUE),
                 TimePickerUtil.getTimePickerHour(timePicker),
                 TimePickerUtil.getTimePickerMinute(timePicker),
-                title.getText().toString(),
+                txtTitle.getText().toString(),
                 1,
                 intRecurring,
                 intMon,
@@ -139,11 +138,11 @@ public class CreateAlarmFragment extends Fragment {
                 intSat,
                 intSun
         );
-        // Add alarm to database
-        alarmDatabaseHelper.addAlarm(alarm);
+        // TODO: update alarm to database
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarm.schedule(getContext());
+            alarm.schedule(this);
         }
 
     }

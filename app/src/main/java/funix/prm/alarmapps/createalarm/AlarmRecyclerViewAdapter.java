@@ -1,5 +1,7 @@
 package funix.prm.alarmapps.createalarm;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +18,18 @@ import funix.prm.alarmapps.data.AlarmDatabaseHelper;
  * Adapter for AlarmListFragment RecyclerView
  */
 public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
+    private final Context context;
+    private final Activity activity;
     private final OnToggleAlarmListener toggleListener;
     private List<AlarmDatabaseHelper.Alarm> alarmList;
 
 
     public AlarmRecyclerViewAdapter(List<AlarmDatabaseHelper.Alarm> alarmList,
-                                    OnToggleAlarmListener toggleListener) {
+                                    OnToggleAlarmListener toggleListener, Context context, Activity activity) {
         this.alarmList = alarmList;
         this.toggleListener = toggleListener;
+        this.context = context;
+        this.activity = activity;
     }
 
     @NonNull
@@ -32,7 +38,7 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmViewHold
         View rootView = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.alarm_recycler_item, parent, false);
-        return new AlarmViewHolder(rootView, toggleListener);
+        return new AlarmViewHolder(rootView, toggleListener, context, activity);
     }
 
     @Override

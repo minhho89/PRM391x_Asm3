@@ -14,8 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AlarmApps">
-        <activity android:name=".activities.AlarmOnActivity"
-            ></activity>
+        <activity android:name=".activities.AlarmUpdateActivity"></activity>
+        <activity android:name=".activities.AlarmOnActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -59,7 +59,8 @@ public class AlarmListFragment extends Fragment implements OnToggleAlarmListener
 
         storeDataToList();
 
-        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(alarmList, this);
+        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(alarmList, this,
+                getContext(), getActivity());
         recyclerView.setAdapter(alarmRecyclerViewAdapter);
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +98,7 @@ public class AlarmListFragment extends Fragment implements OnToggleAlarmListener
             while (cursor.moveToNext()) {
                 AlarmDatabaseHelper.Alarm tmpAlarm =
                         new AlarmDatabaseHelper.Alarm(
+                                cursor.getInt(0),
                                 cursor.getInt(1),
                                 cursor.getInt(2),
                                 cursor.getString(3),

@@ -17,7 +17,6 @@ import androidx.annotation.RequiresApi;
 import java.util.Calendar;
 
 import funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver;
-import funix.prm.alarmapps.utils.DayUtil;
 
 import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.FRIDAY;
 import static funix.prm.alarmapps.broadcastReceiver.AlarmBroadcastReceiver.MONDAY;
@@ -103,6 +102,8 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_SATURDAY, alarm.getSat());
         cv.put(COL_SUNDAY, alarm.getSun());
 
+//        alarm.setId((Integer) cv.get(COL_ID));
+
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1) {
             // Fails to insert data
@@ -123,11 +124,64 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    void updateData(String row_id, String hour, String minute,
+                    String title, String started, String recurring,
+                    String mon, String tue, String wed, String thu, String fri, String sat, String sun) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_HOUR, hour);
+        cv.put(COL_MINUTE, minute);
+        cv.put(COL_TITLE, title);
+        cv.put(COL_STARTED, started);
+        cv.put(COL_RECURRING, recurring);
+        cv.put(COL_MONDAY, mon);
+        cv.put(COL_TUESDAY, tue);
+        cv.put(COL_WEDNESDAY, wed);
+        cv.put(COL_THURSDAY, thu);
+        cv.put(COL_FRIDAY, fri);
+        cv.put(COL_SATURDAY, sat);
+        cv.put(COL_SUNDAY, sun);
+
+        long result = db.update(TABLE_NAME, cv, "id=?", new String[]{row_id});
+        if (result == -1) {
+            Toast.makeText(context, "Failed to update.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Successfully Updated", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void deleteOneRow(String row_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_NAME, "id=?", new String[]{row_id});
+        if (result == -1) {
+            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public static class Alarm {
         private int id, hour, minute;
         private String title;
         private int started, recurring;
         private int mon, tue, wed, thu, fri, sat, sun;
+
+        public Alarm(int id, int hour, int minute, String title, int started, int recurring,
+                     int mon, int tue, int wed, int thu, int fri, int sat, int sun) {
+            this.id = id;
+            this.hour = hour;
+            this.minute = minute;
+            this.title = title;
+            this.started = started;
+            this.recurring = recurring;
+            this.mon = mon;
+            this.tue = tue;
+            this.wed = wed;
+            this.thu = thu;
+            this.fri = fri;
+            this.sat = sat;
+            this.sun = sun;
+        }
 
         public Alarm(int hour, int minute, String title, int started, int recurring,
                      int mon, int tue, int wed, int thu, int fri, int sat, int sun) {
@@ -307,8 +361,8 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
                 // If alarm is not a recurring alarm, set alarm 1 time
                 String toastText = null;
                 try {
-                    toastText = String.format("One time alarm %s scheduled for %s at %02d:%02d",
-                            title, DayUtil.toDay(Calendar.DAY_OF_WEEK), hour, minute);
+                    toastText = String.format("One time alarm %s scheduled at %02d:%02d",
+                            title, hour, minute);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -389,7 +443,6 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 
         }
     }
-
     public void deleteAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME);
