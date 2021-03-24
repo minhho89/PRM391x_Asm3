@@ -124,9 +124,9 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    void updateData(String row_id, String hour, String minute,
-                    String title, String started, String recurring,
-                    String mon, String tue, String wed, String thu, String fri, String sat, String sun) {
+    public void updateData(String row_id, String hour, String minute,
+                           String title, String started, String recurring,
+                           String mon, String tue, String wed, String thu, String fri, String sat, String sun) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COL_HOUR, hour);
@@ -150,7 +150,7 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    void deleteOneRow(String row_id) {
+    public void deleteOneRow(String row_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME, "id=?", new String[]{row_id});
         if (result == -1) {

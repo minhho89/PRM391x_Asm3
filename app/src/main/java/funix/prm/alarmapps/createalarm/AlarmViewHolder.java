@@ -35,7 +35,8 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
     private final LinearLayout linearLayout;
     private OnToggleAlarmListener toggleListener;
 
-    public AlarmViewHolder(@NonNull View itemView, OnToggleAlarmListener toggleListener, Context context, Activity activity) {
+    public AlarmViewHolder(@NonNull View itemView, OnToggleAlarmListener toggleListener,
+                           Context context, Activity activity) {
         super(itemView);
 
         txtAlarmClock = itemView.findViewById(R.id.item_txt_clockText);
@@ -139,7 +140,7 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
             txtAlarmTitle.setText("No title");
         }
 
-
+        // Put alarm data to intent to move to AlarmUpdateActivity
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
