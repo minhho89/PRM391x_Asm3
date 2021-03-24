@@ -18,9 +18,9 @@ import funix.prm.alarmapps.data.AlarmDatabaseHelper;
 import funix.prm.alarmapps.services.AlarmService;
 
 public class AlarmOnActivity extends AppCompatActivity {
-    Button dismissBtn;
-    Button snoozeBtn;
-    ImageView clockImg;
+    Button mDismissBtn;
+    Button mSnoozeBtn;
+    ImageView mClockImg;
 
 
     @Override
@@ -28,11 +28,11 @@ public class AlarmOnActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_on);
 
-        dismissBtn = findViewById(R.id.fragment_alarm_dismiss_btn);
-        snoozeBtn = findViewById(R.id.fragment_alarm_snooze_btn);
-        clockImg = findViewById(R.id.fragment_alarm_imageView);
+        mDismissBtn = findViewById(R.id.fragment_alarm_dismiss_btn);
+        mSnoozeBtn = findViewById(R.id.fragment_alarm_snooze_btn);
+        mClockImg = findViewById(R.id.fragment_alarm_imageView);
 
-        dismissBtn.setOnClickListener(new View.OnClickListener() {
+        mDismissBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Stop service
@@ -42,7 +42,7 @@ public class AlarmOnActivity extends AppCompatActivity {
             }
         });
 
-        snoozeBtn.setOnClickListener(new View.OnClickListener() {
+        mSnoozeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
@@ -82,7 +82,7 @@ public class AlarmOnActivity extends AppCompatActivity {
      * Animate the clock image
      */
     private void rotateClock() {
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(clockImg, "rotation",
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mClockImg, "rotation",
                 0f, 20f, -20f);
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
         objectAnimator.setDuration(800);

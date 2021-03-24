@@ -24,12 +24,12 @@ import funix.prm.alarmapps.data.AlarmDatabaseHelper;
  * Handles fragment of displaying alarm list by RecyclerView
  */
 public class AlarmListFragment extends Fragment implements OnToggleAlarmListener {
-    private AlarmRecyclerViewAdapter alarmRecyclerViewAdapter;
-    private RecyclerView recyclerView;
-    private Button btnCreate;
+    private AlarmRecyclerViewAdapter mAlarmRecyclerViewAdapter;
+    private RecyclerView mRecyclerView;
+    private Button mBtnCreate;
 
-    private AlarmDatabaseHelper dbHelper;
-    private List<AlarmDatabaseHelper.Alarm> alarmList;
+    private AlarmDatabaseHelper mDbHelper;
+    private List<AlarmDatabaseHelper.Alarm> mAlarmList;
 
 
     public AlarmListFragment() {
@@ -48,22 +48,22 @@ public class AlarmListFragment extends Fragment implements OnToggleAlarmListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_alarm_list, container, false);
-        recyclerView = rootView.findViewById(R.id.fragment_alarmList_recyclerView);
+        mRecyclerView = rootView.findViewById(R.id.fragment_alarmList_recyclerView);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        btnCreate = rootView.findViewById(R.id.fragment_alarmList_createBtn);
+        mBtnCreate = rootView.findViewById(R.id.fragment_alarmList_createBtn);
 
-        dbHelper = new AlarmDatabaseHelper(getContext());
-        alarmList = new ArrayList<>();
+        mDbHelper = new AlarmDatabaseHelper(getContext());
+        mAlarmList = new ArrayList<>();
 
         storeDataToList();
 
-        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(alarmList, this,
+        mAlarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(mAlarmList, this,
                 getContext(), getActivity());
-        recyclerView.setAdapter(alarmRecyclerViewAdapter);
+        mRecyclerView.setAdapter(mAlarmRecyclerViewAdapter);
 
-        btnCreate.setOnClickListener(new View.OnClickListener() {
+        mBtnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CreateAlarmFragment fragment = new CreateAlarmFragment();
@@ -91,7 +91,7 @@ public class AlarmListFragment extends Fragment implements OnToggleAlarmListener
     }
 
     private void storeDataToList() {
-        Cursor cursor = dbHelper.readAllData();
+        Cursor cursor = mDbHelper.readAllData();
         if (cursor.getCount() == 0) {
             Toast.makeText(getContext(), "No data.", Toast.LENGTH_SHORT).show();
         } else {
@@ -111,7 +111,7 @@ public class AlarmListFragment extends Fragment implements OnToggleAlarmListener
                                 cursor.getInt(10),
                                 cursor.getInt(11),
                                 cursor.getInt(12));
-                alarmList.add(tmpAlarm);
+                mAlarmList.add(tmpAlarm);
             }
         }
     }

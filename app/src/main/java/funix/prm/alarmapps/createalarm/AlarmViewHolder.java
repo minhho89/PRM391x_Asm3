@@ -23,88 +23,87 @@ import funix.prm.alarmapps.data.AlarmDatabaseHelper;
  */
 public class AlarmViewHolder extends RecyclerView.ViewHolder {
 
-    private final Context context;
-    private final Activity activity;
-
-    private TextView txtAlarmClock;
-    private TextView txtRecurringDays;
-    private TextView txtAlarmTitle;
-    private Switch swtStarted;
-    private ImageView imgRecurring;
-    private ImageButton btnDelete;
-    private final LinearLayout linearLayout;
-    private OnToggleAlarmListener toggleListener;
+    private final Context mContext;
+    private final Activity mActivity;
+    private final LinearLayout mLinearLayout;
+    private TextView mTxtAlarmClock;
+    private TextView mTxtRecurringDays;
+    private TextView mTxtAlarmTitle;
+    private Switch mSwtStarted;
+    private ImageView mImgRecurring;
+    private ImageButton mBtnDelete;
+    private OnToggleAlarmListener mToggleListener;
 
     public AlarmViewHolder(@NonNull View itemView, OnToggleAlarmListener toggleListener,
                            Context context, Activity activity) {
         super(itemView);
 
-        txtAlarmClock = itemView.findViewById(R.id.item_txt_clockText);
-        txtRecurringDays = itemView.findViewById(R.id.item_txt_recurringDays);
-        txtAlarmTitle = itemView.findViewById(R.id.item_txt_alarmTitle);
-        swtStarted = itemView.findViewById(R.id.item_swt_started);
-        imgRecurring = itemView.findViewById(R.id.item_img_recurring);
-        linearLayout = itemView.findViewById(R.id.item_linearLayout);
-        this.context = context;
-        this.activity = activity;
+        mTxtAlarmClock = itemView.findViewById(R.id.item_txt_clockText);
+        mTxtRecurringDays = itemView.findViewById(R.id.item_txt_recurringDays);
+        mTxtAlarmTitle = itemView.findViewById(R.id.item_txt_alarmTitle);
+        mSwtStarted = itemView.findViewById(R.id.item_swt_started);
+        mImgRecurring = itemView.findViewById(R.id.item_img_recurring);
+        mLinearLayout = itemView.findViewById(R.id.item_linearLayout);
+        this.mContext = context;
+        this.mActivity = activity;
 
-        this.toggleListener = toggleListener;
+        this.mToggleListener = toggleListener;
     }
 
-    public TextView getTxtAlarmClock() {
-        return txtAlarmClock;
+    public TextView getmTxtAlarmClock() {
+        return mTxtAlarmClock;
     }
 
-    public void setTxtAlarmClock(TextView txtAlarmClock) {
-        this.txtAlarmClock = txtAlarmClock;
+    public void setmTxtAlarmClock(TextView mTxtAlarmClock) {
+        this.mTxtAlarmClock = mTxtAlarmClock;
     }
 
-    public TextView getTxtRecurringDays() {
-        return txtRecurringDays;
+    public TextView getmTxtRecurringDays() {
+        return mTxtRecurringDays;
     }
 
-    public void setTxtRecurringDays(TextView txtRecurringDays) {
-        this.txtRecurringDays = txtRecurringDays;
+    public void setmTxtRecurringDays(TextView mTxtRecurringDays) {
+        this.mTxtRecurringDays = mTxtRecurringDays;
     }
 
-    public TextView getTxtAlarmTitle() {
-        return txtAlarmTitle;
+    public TextView getmTxtAlarmTitle() {
+        return mTxtAlarmTitle;
     }
 
-    public void setTxtAlarmTitle(TextView txtAlarmTitle) {
-        this.txtAlarmTitle = txtAlarmTitle;
+    public void setmTxtAlarmTitle(TextView mTxtAlarmTitle) {
+        this.mTxtAlarmTitle = mTxtAlarmTitle;
     }
 
-    public Switch getSwtStarted() {
-        return swtStarted;
+    public Switch getmSwtStarted() {
+        return mSwtStarted;
     }
 
-    public void setSwtStarted(Switch swtStarted) {
-        this.swtStarted = swtStarted;
+    public void setmSwtStarted(Switch mSwtStarted) {
+        this.mSwtStarted = mSwtStarted;
     }
 
-    public ImageView getImgRecurring() {
-        return imgRecurring;
+    public ImageView getmImgRecurring() {
+        return mImgRecurring;
     }
 
-    public void setImgRecurring(ImageView imgRecurring) {
-        this.imgRecurring = imgRecurring;
+    public void setmImgRecurring(ImageView mImgRecurring) {
+        this.mImgRecurring = mImgRecurring;
     }
 
-    public ImageButton getBtnDelete() {
-        return btnDelete;
+    public ImageButton getmBtnDelete() {
+        return mBtnDelete;
     }
 
-    public void setBtnDelete(ImageButton btnDelete) {
-        this.btnDelete = btnDelete;
+    public void setmBtnDelete(ImageButton mBtnDelete) {
+        this.mBtnDelete = mBtnDelete;
     }
 
-    public OnToggleAlarmListener getToggleListener() {
-        return toggleListener;
+    public OnToggleAlarmListener getmToggleListener() {
+        return mToggleListener;
     }
 
-    public void setToggleListener(OnToggleAlarmListener toggleListener) {
-        this.toggleListener = toggleListener;
+    public void setmToggleListener(OnToggleAlarmListener mToggleListener) {
+        this.mToggleListener = mToggleListener;
     }
 
     /**
@@ -115,36 +114,36 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
     public void bind(AlarmDatabaseHelper.Alarm alarm) {
         String alarmClockText = String.format("%02d:%02d", alarm.getHour(), alarm.getMinute());
 
-        txtAlarmClock.setText(alarmClockText);
-        swtStarted.setChecked(alarm.getStarted() == 1);
+        mTxtAlarmClock.setText(alarmClockText);
+        mSwtStarted.setChecked(alarm.getStarted() == 1);
 
-        swtStarted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mSwtStarted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                toggleListener.onToggle(alarm);
+                mToggleListener.onToggle(alarm);
             }
         });
 
 
         if (alarm.getRecurring() == 1) {
-            imgRecurring.setImageResource(R.drawable.ic_repeat);
-            txtRecurringDays.setText(alarm.getRecurringDays());
+            mImgRecurring.setImageResource(R.drawable.ic_repeat);
+            mTxtRecurringDays.setText(alarm.getRecurringDays());
         } else {
-            imgRecurring.setImageResource(R.drawable.ic_repeat_one);
-            txtRecurringDays.setText("One time alarm");
+            mImgRecurring.setImageResource(R.drawable.ic_repeat_one);
+            mTxtRecurringDays.setText("One time alarm");
         }
 
         if (alarm.getTitle().length() != 0) {
-            txtAlarmTitle.setText(alarm.getTitle());
+            mTxtAlarmTitle.setText(alarm.getTitle());
         } else {
-            txtAlarmTitle.setText("No title");
+            mTxtAlarmTitle.setText("No title");
         }
 
         // Put alarm data to intent to move to AlarmUpdateActivity
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, AlarmUpdateActivity.class);
+                Intent intent = new Intent(mContext, AlarmUpdateActivity.class);
                 intent.putExtra("id", String.valueOf(alarm.getId()));
                 intent.putExtra("hour", String.valueOf(alarm.getHour()));
                 intent.putExtra("minute", String.valueOf(alarm.getMinute()));
@@ -159,7 +158,7 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
                 intent.putExtra("sat", String.valueOf(alarm.getSat()));
                 intent.putExtra("sun", String.valueOf(alarm.getSun()));
 
-                activity.startActivityForResult(intent, 1);
+                mActivity.startActivityForResult(intent, 1);
             }
         });
 

@@ -50,11 +50,11 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_SATURDAY = "saturday";
     public static final String COL_SUNDAY = "sunday";
     public static final String COL_TITLE = "title";
-    private final Context context;
+    private final Context mContext;
 
     public AlarmDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.context = context;
+        this.mContext = context;
     }
 
     @Override
@@ -107,9 +107,9 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1) {
             // Fails to insert data
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Failed", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Added successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Added successfully!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -144,9 +144,9 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.update(TABLE_NAME, cv, "id=?", new String[]{row_id});
         if (result == -1) {
-            Toast.makeText(context, "Failed to update.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Failed to update.", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Successfully Updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Successfully Updated", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -154,9 +154,9 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME, "id=?", new String[]{row_id});
         if (result == -1) {
-            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Failed to Delete.", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
         }
     }
 

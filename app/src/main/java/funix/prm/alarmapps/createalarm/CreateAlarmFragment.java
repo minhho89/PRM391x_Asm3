@@ -27,19 +27,19 @@ import funix.prm.alarmapps.utils.TimePickerUtil;
  * Retains data by using ViewModel.
  */
 public class CreateAlarmFragment extends Fragment {
-    View rootView;
-    TimePicker timePicker;
-    EditText title;
-    Button scheduleAlarm;
-    CheckBox recurring;
-    CheckBox mon;
-    CheckBox tue;
-    CheckBox wed;
-    CheckBox thu;
-    CheckBox fri;
-    CheckBox sat;
-    CheckBox sun;
-    LinearLayout recurringOptions;
+    View mRootView;
+    TimePicker mTimePicker;
+    EditText mTitle;
+    Button mScheduleAlarm;
+    CheckBox mRecurring;
+    CheckBox mMon;
+    CheckBox mTue;
+    CheckBox mWed;
+    CheckBox mThu;
+    CheckBox mFri;
+    CheckBox mSat;
+    CheckBox mSun;
+    LinearLayout mRecurringOptions;
 
     public CreateAlarmFragment() {
         // Required empty public constructor
@@ -55,34 +55,34 @@ public class CreateAlarmFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = LayoutInflater.from(getContext())
+        mRootView = LayoutInflater.from(getContext())
                 .inflate(R.layout.fragment_create_alarm, null);
 
-        timePicker = rootView.findViewById(R.id.fragment_createalarm_timePicker);
-        title = rootView.findViewById(R.id.fragment_createalarm_title);
-        scheduleAlarm = rootView.findViewById(R.id.fragment_createalarm_scheduleAlarmButton);
-        recurring = rootView.findViewById(R.id.fragment_createalarm_Checkrecurring);
-        mon = rootView.findViewById(R.id.fragment_createalarm_checkMon);
-        tue = rootView.findViewById(R.id.fragment_createalarm_checkTue);
-        wed = rootView.findViewById(R.id.fragment_createalarm_checkWed);
-        thu = rootView.findViewById(R.id.fragment_createalarm_checkThu);
-        fri = rootView.findViewById(R.id.fragment_createalarm_checkFri);
-        sat = rootView.findViewById(R.id.fragment_createalarm_checkSat);
-        sun = rootView.findViewById(R.id.fragment_createalarm_checkSun);
-        recurringOptions = rootView.findViewById(R.id.fragment_createalarm_recurring_options);
+        mTimePicker = mRootView.findViewById(R.id.fragment_createalarm_timePicker);
+        mTitle = mRootView.findViewById(R.id.fragment_createalarm_title);
+        mScheduleAlarm = mRootView.findViewById(R.id.fragment_createalarm_scheduleAlarmButton);
+        mRecurring = mRootView.findViewById(R.id.fragment_createalarm_Checkrecurring);
+        mMon = mRootView.findViewById(R.id.fragment_createalarm_checkMon);
+        mTue = mRootView.findViewById(R.id.fragment_createalarm_checkTue);
+        mWed = mRootView.findViewById(R.id.fragment_createalarm_checkWed);
+        mThu = mRootView.findViewById(R.id.fragment_createalarm_checkThu);
+        mFri = mRootView.findViewById(R.id.fragment_createalarm_checkFri);
+        mSat = mRootView.findViewById(R.id.fragment_createalarm_checkSat);
+        mSun = mRootView.findViewById(R.id.fragment_createalarm_checkSun);
+        mRecurringOptions = mRootView.findViewById(R.id.fragment_createalarm_recurring_options);
 
-        recurring.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mRecurring.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    recurringOptions.setVisibility(View.VISIBLE);
+                    mRecurringOptions.setVisibility(View.VISIBLE);
                 } else {
-                    recurringOptions.setVisibility(View.GONE);
+                    mRecurringOptions.setVisibility(View.GONE);
                 }
             }
         });
 
-        scheduleAlarm.setOnClickListener(new View.OnClickListener() {
+        mScheduleAlarm.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -95,7 +95,7 @@ public class CreateAlarmFragment extends Fragment {
         });
 
         // Inflate the layout for this fragment
-        return rootView;
+        return mRootView;
     }
 
     /**
@@ -113,22 +113,22 @@ public class CreateAlarmFragment extends Fragment {
      */
     private void scheduleAlarm() {
         // Convert boolean to int value to put into database
-        int intRecurring = recurring.isChecked() ? 1 : 0;
-        int intMon = mon.isChecked() ? 1 : 0;
-        int intTue = tue.isChecked() ? 1 : 0;
-        int intWed = wed.isChecked() ? 1 : 0;
-        int intThu = thu.isChecked() ? 1 : 0;
-        int intFri = fri.isChecked() ? 1 : 0;
-        int intSat = sat.isChecked() ? 1 : 0;
-        int intSun = sun.isChecked() ? 1 : 0;
+        int intRecurring = mRecurring.isChecked() ? 1 : 0;
+        int intMon = mMon.isChecked() ? 1 : 0;
+        int intTue = mTue.isChecked() ? 1 : 0;
+        int intWed = mWed.isChecked() ? 1 : 0;
+        int intThu = mThu.isChecked() ? 1 : 0;
+        int intFri = mFri.isChecked() ? 1 : 0;
+        int intSat = mSat.isChecked() ? 1 : 0;
+        int intSun = mSun.isChecked() ? 1 : 0;
 
         // Create an alarm DatabaseHelper to add alarm to database
         AlarmDatabaseHelper alarmDatabaseHelper = new AlarmDatabaseHelper(getContext());
         AlarmDatabaseHelper.Alarm alarm = new AlarmDatabaseHelper.Alarm(
                 new Random().nextInt(Integer.MAX_VALUE),
-                TimePickerUtil.getTimePickerHour(timePicker),
-                TimePickerUtil.getTimePickerMinute(timePicker),
-                title.getText().toString(),
+                TimePickerUtil.getTimePickerHour(mTimePicker),
+                TimePickerUtil.getTimePickerMinute(mTimePicker),
+                mTitle.getText().toString(),
                 1,
                 intRecurring,
                 intMon,

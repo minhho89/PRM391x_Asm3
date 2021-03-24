@@ -27,19 +27,19 @@ import static funix.prm.alarmapps.services.AlarmService.App.CHANNEL_ID;
  * Creates service for activating the Alarm
  */
 public class AlarmService extends Service {
-    private MediaPlayer mediaPlayer;
-    private Vibrator vibrator;
+    private MediaPlayer mMediaPlayer;
+    private Vibrator mVibrator;
 
     @Override
     public void onCreate() {
         super.onCreate();
         // Creates references to:
         // Alarm sound
-        mediaPlayer = MediaPlayer.create(this, R.raw.alarm);
-        mediaPlayer.setLooping(true);
+        mMediaPlayer = MediaPlayer.create(this, R.raw.alarm);
+        mMediaPlayer.setLooping(true);
 
         // Vibrator
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     /**
@@ -73,10 +73,10 @@ public class AlarmService extends Service {
                 .build();
 
         // Start alarm rings repeated
-        mediaPlayer.start();
+        mMediaPlayer.start();
 
         // Vibrate
-        vibrator.vibrate(new long[]{0, 100, 1000}, 0);
+        mVibrator.vibrate(new long[]{0, 100, 1000}, 0);
         startForeground(1, notification);
 
         // Move to AlarmOnActivity
@@ -89,8 +89,8 @@ public class AlarmService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mediaPlayer.stop();
-        vibrator.cancel();
+        mMediaPlayer.stop();
+        mVibrator.cancel();
     }
 
     @Nullable
