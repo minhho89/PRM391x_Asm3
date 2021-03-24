@@ -1,4 +1,4 @@
-package funix.prm.alarmapps.createalarm;
+package funix.prm.alarmapps.utils;
 
 import android.os.Build;
 import android.widget.TimePicker;

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Alarm Apps</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="schedule_alarm_text">Schedule Alarm</string>
     <string name="alarm_title_text">Alarm Title</string>
@@ -12,5 +12,21 @@
     <string name="fri_text">Fri</string>
     <string name="sat_text">Sat</string>
     <string name="sun_text">Sun</string>
+
+    <string name="sample_clock_display">00:00</string>
+
+    <string name="snooze_btn">Snooze</string>
+    <string name="dismiss_btn">Dismiss</string>
+    <string name="create_btn">Create alarm</string>
+    <string name="edit_btn">Edit alarm</string>
+    <string name="delete_btn">Delete alarm</string>
+    <string name="delete_all_btn">Delete all</string>
+
+    <string name="alarm_list_heading">ALARM LIST</string>
+
+    <string name="delete_all_confirm">Delete all data?</string>
+    <string name="delete_all_sure">Are you sure you want to delete all data?</string>
+    <string name="yes_confirm">Yes</string>
+    <string name="no_confirm">No</string>
 
 </resources>
